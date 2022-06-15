@@ -9,13 +9,20 @@
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+    "baseUrl": "./",
+    "paths": {
+      "@dkr/genres/*": ["genres/*"],
+      "@dkr/common/api/movie": ["src/common/api/movie/index"],
+      "@dkr/common/api/utils/*": ["src/common/api/utils/*"],
+      "@dkr/common/constants/*": ["src/common/constants/*"],
+      "@dkr/common/typings": ["src/common/typings/index"]
+    }
   }
 }

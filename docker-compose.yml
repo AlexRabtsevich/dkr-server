@@ -1,0 +1,30 @@
+version: "3.6"
+
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    container_name: postgres-db
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+  api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: ${NODE_ENV}
+      args:
+        - API_PORT=${API_PORT}
+    ports:
+      - ${API_PORT}:${API_PORT}
+    container_name: nest-api
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+      - /app/node_modules
+volumes:
+  pgdata:
