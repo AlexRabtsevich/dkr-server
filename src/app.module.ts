@@ -6,11 +6,11 @@ import { DirectiveLocation, GraphQLDirective } from 'graphql';
 
 import { upperDirectiveTransformer } from './utils';
 import { RecipesModule } from './recipes/recipes.module';
-import { MovieGenreModule } from './movie-genre/movie-genre.module';
+import { GenreModule } from './genre/genre.module';
 
 @Module({
   imports: [
-    MovieGenreModule,
+    GenreModule,
     RecipesModule,
     ConfigModule.forRoot(),
     GraphQLModule.forRoot<ApolloDriverConfig>({

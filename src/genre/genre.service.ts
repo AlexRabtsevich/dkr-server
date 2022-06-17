@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
-import { MovieGenre } from './movie-genre.type';
-import { MovieGenreApi } from './movie-genre.api';
+import { MovieGenre } from './genre.types';
+import { GenreApi } from './genre.api';
 
 @Injectable()
-export class MovieGenreService {
-  constructor(private readonly genreApi: MovieGenreApi) {}
+export class GenreService {
+  constructor(private readonly genreApi: GenreApi) {}
 
   public async findAll(): Promise<MovieGenre[]> {
     return await this.genreApi.getMovieGenres();

@@ -22,8 +22,8 @@ type Genre {
 }
 
 type Query {
-  genre(id: Int = 1): Genre!
-  genres: [Genre!]!
+  movieGenre(id: Int!): Genre!
+  movieGenres: [Genre!]!
   recipe(id: String!): Recipe!
   recipes(skip: Int = 1, take: Int!): [Recipe!]!
 }
