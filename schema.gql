@@ -4,41 +4,93 @@
 
 directive @upper on FIELD_DEFINITION
 
-"""recipe """
-type Recipe {
-  id: ID!
-  description: String
-  creationDate: Date!
-  ingredients: [String!]!
-}
-
-"""Date custom scalar type"""
-scalar Date
-
 """genre """
 type Genre {
   id: ID!
   name: String!
 }
 
+"""Movie production company"""
+type MovieProductionCompanyModel {
+  id: Float!
+  name: String!
+  logoPath: String
+  originCountry: String
+}
+
+"""Movie production country"""
+type MovieProductionCountryModel {
+  name: String!
+  iso31661: String!
+}
+
+"""Movie spoken language"""
+type MovieSpokenLanguageModel {
+  name: String!
+  iso6391: String!
+}
+
+"""Movie details"""
+type MovieDetailsModel {
+  posterPath: String
+  adult: Boolean!
+  overview: String
+  releaseDate: String!
+  id: ID!
+  originalTitle: String!
+  originalLanguage: String!
+  title: String!
+  backdropPath: String
+  popularity: Float!
+  video: Boolean!
+  voteAverage: Float!
+  voteCount: Float!
+  belongsToCollection: String
+  budget: Float!
+  genres: [Genre!]!
+  homepage: String
+  imdbId: String
+  productionCompanies: [MovieProductionCompanyModel!]!
+  productionCountries: [MovieProductionCountryModel!]!
+  revenue: Float!
+  runtime: Float
+  spokenLanguages: [MovieSpokenLanguageModel!]!
+  status: String!
+  tagline: String
+}
+
+"""Movie list"""
+type MovieModel {
+  posterPath: String
+  adult: Boolean!
+  overview: String
+  releaseDate: String!
+  id: ID!
+  originalTitle: String!
+  originalLanguage: String!
+  title: String!
+  backdropPath: String
+  popularity: Float!
+  video: Boolean!
+  voteAverage: Float!
+  voteCount: Float!
+  genresId: [Float!]
+}
+
+"""Movies with pagination info"""
+type MoviesResultsModelWithPagination {
+  page: Int!
+  totalPages: Int!
+  totalResults: Int!
+  results: [MovieModel!]!
+}
+
 type Query {
   movieGenre(id: Int!): Genre!
   movieGenres: [Genre!]!
-  recipe(id: String!): Recipe!
-  recipes(skip: Int = 1, take: Int!): [Recipe!]!
-}
-
-type Mutation {
-  addRecipe(newRecipeData: NewRecipeInput!): Recipe!
-  removeRecipe(id: String!): Boolean!
-}
-
-input NewRecipeInput {
-  title: String!
-  description: String
-  ingredients: [String!]!
-}
-
-type Subscription {
-  recipeAdded: Recipe!
+  movieDetails(id: Int!): MovieDetailsModel!
+  latestMovie: MovieDetailsModel!
+  popularMovies(page: Int!): MoviesResultsModelWithPagination!
+  upcomingMovies(page: Int!): MoviesResultsModelWithPagination!
+  topRatedMovies(page: Int!): MoviesResultsModelWithPagination!
 }

@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "nodenext",
+    "moduleResolution": "Node",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
@@ -19,10 +20,12 @@
     "baseUrl": "./",
     "paths": {
       "@dkr/genres/*": ["genres/*"],
-      "@dkr/common/api/movie": ["src/common/api/movie/index"],
+      "@dkr/common/api/*": ["src/common/api/*"],
       "@dkr/common/api/utils/*": ["src/common/api/utils/*"],
       "@dkr/common/constants/*": ["src/common/constants/*"],
+      "@dkr/common/models/*": ["src/common/models/*"],
+      "@dkr/common/dto/*": ["src/common/dto/*"],
       "@dkr/common/typings": ["src/common/typings/index"]
     }
-  }
+  },
 }

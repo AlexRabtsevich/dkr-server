@@ -5,13 +5,13 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
 
 import { upperDirectiveTransformer } from './utils';
-import { RecipesModule } from './recipes/recipes.module';
 import { GenreModule } from './genre/genre.module';
+import { MovieModule } from './movie/movie.module';
 
 @Module({
   imports: [
     GenreModule,
-    RecipesModule,
+    MovieModule,
     ConfigModule.forRoot(),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
