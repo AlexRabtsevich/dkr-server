@@ -19,13 +19,13 @@
     "noFallthroughCasesInSwitch": false,
     "baseUrl": "./",
     "paths": {
-      "@dkr/genres/*": ["genres/*"],
+      "@dkr/modules/*": ["src/modules/*"],
+      "@dkr/shared/*": ["src/shared/*"],
+      "@dkr/typeorm/*": ["src/typeorm/*"],
+      "@dkr/gql/*": ["src/gql/*"],
       "@dkr/common/api/*": ["src/common/api/*"],
-      "@dkr/common/api/utils/*": ["src/common/api/utils/*"],
-      "@dkr/common/constants/*": ["src/common/constants/*"],
-      "@dkr/common/models/*": ["src/common/models/*"],
-      "@dkr/common/dto/*": ["src/common/dto/*"],
-      "@dkr/common/typings": ["src/common/typings/index"]
+      "@dkr/common/typings": ["src/common/typings/index"],
+      "@dkr/common/constants": ["src/common/constants/index"]
     }
   },
 }

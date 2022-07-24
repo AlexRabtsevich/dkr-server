@@ -1,4 +1,4 @@
-import { SLASH_CHAR } from '@dkr/common/constants/chars';
+import { SLASH_CHAR } from '@dkr/common/constants';
 
 export const concatPath = (...partsOfPath: string[]): string => {
   return partsOfPath.reduce((path, partOfPath) => {

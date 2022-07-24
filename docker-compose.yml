@@ -5,10 +5,12 @@ services:
     image: postgres
     restart: always
     environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
     container_name: postgres-db
+    ports:
+      - ${DATABASE_PORT}:${DATABASE_PORT}
     volumes:
       - ./pgdata:/var/lib/postgresql/data
   api:
@@ -26,5 +28,16 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+    ports:
+      - "8080:80"
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin/data
 volumes:
   pgdata:

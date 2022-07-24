@@ -1,33 +1,19 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { DirectiveLocation, GraphQLDirective } from 'graphql';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { upperDirectiveTransformer } from './utils';
-import { GenreModule } from './genre/genre.module';
-import { MovieModule } from './movie/movie.module';
+import { graphQLConfig } from '@dkr/gql/gql.config';
+import { TypeOrmConfigService } from '@dkr/typeorm/typeorm.service';
+
+import * as modules from './modules';
 
 @Module({
   imports: [
-    GenreModule,
-    MovieModule,
-    ConfigModule.forRoot(),
-    GraphQLModule.forRoot<ApolloDriverConfig>({
-      driver: ApolloDriver,
-      autoSchemaFile: 'schema.gql',
-      transformSchema: (schema) => upperDirectiveTransformer(schema, 'upper'),
-      installSubscriptionHandlers: true,
-      playground: true,
-      buildSchemaOptions: {
-        directives: [
-          new GraphQLDirective({
-            name: 'upper',
-            locations: [DirectiveLocation.FIELD_DEFINITION],
-          }),
-        ],
-      },
-    }),
+    ...Object.values(modules),
+    ConfigModule.forRoot({ isGlobal: true }),
+    GraphQLModule.forRoot(graphQLConfig),
+    TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
   ],
 })
 export class AppModule {}

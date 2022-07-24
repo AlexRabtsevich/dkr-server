@@ -1,5 +1,5 @@
 export interface IRepositoryRead<T> {
-  find: () => Promise<T[]>;
+  findAll: () => Promise<T[]>;
   findOne: (id: string | number) => Promise<T>;
 }
 
