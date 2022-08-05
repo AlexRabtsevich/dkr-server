@@ -9,6 +9,15 @@ type GenderModel {
   name: String!
 }
 
+type AuthenticationModel {
+  accessToken: String!
+  refreshToken: String!
+}
+
+type LogoutModel {
+  success: Boolean!
+}
+
 type UserModel {
   uuid: ID!
   firstName: String!
@@ -126,6 +135,9 @@ type Query {
 type Mutation {
   createUser(crateUserData: CreateUserDto!): Boolean!
   updateUser(updateUserData: UpdateUserDto!): UserModel!
+  authenticate(authentication: AuthenticationDto!): AuthenticationModel!
+  refreshAuthentication(refreshToken: RefreshAuthenticationDto!): AuthenticationModel!
+  logout: LogoutModel!
 }
 
 input CreateUserDto {
@@ -142,4 +154,13 @@ input UpdateUserDto {
   lastName: String
   birthDate: DateTime
   genderUuid: String
+}
+
+input AuthenticationDto {
+  email: String!
+  password: String!
+}
+
+input RefreshAuthenticationDto {
+  refreshToken: String!
 }
