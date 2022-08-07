@@ -17,4 +17,8 @@ export const graphQLConfig: ApolloDriverConfig = {
       }),
     ],
   },
+  cors: {
+    origin: process.env.AVAILABLE_CORS_ORIGIN_URL,
+    credentials: true,
+  },
 };

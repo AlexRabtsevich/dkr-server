@@ -2,7 +2,7 @@ import axios, { Axios } from 'axios';
 
 import { getMovieDatabaseApiBasePath, withMovieDatabaseApiKey } from '../utils/movie-database.api';
 
-export class BaseTheMovieDatabaseApi {
+export class BaseMDApi {
   protected httpClient: Axios;
 
   constructor() {

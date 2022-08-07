@@ -4,7 +4,8 @@ import camelcaseKeys from 'camelcase-keys';
 import { ResultsWithPagination } from '@dkr/common/typings';
 import { MDMovieApi } from '@dkr/shared/movie-database';
 
-import { Movie, MovieDetails, AbstractMovieService } from './movie.interface';
+import { mapMovieParamsToDiscoverParams } from './movie.mapper';
+import { Movie, MovieDetails, AbstractMovieService, ISearchMoviesParams } from './movie.interface';
 
 @Injectable()
 export class MovieService extends AbstractMovieService {
@@ -38,6 +39,13 @@ export class MovieService extends AbstractMovieService {
 
   public async getUpcomingMovies(page: number, region?: string): Promise<ResultsWithPagination<Movie>> {
     const resultWithPagination = await this.movieApi.getUpcomingMovies(page, region);
+
+    return camelcaseKeys(resultWithPagination, { deep: true });
+  }
+
+  public async searchMovies(params: ISearchMoviesParams): Promise<ResultsWithPagination<Movie>> {
+    const discoverParams = mapMovieParamsToDiscoverParams(params);
+    const resultWithPagination = await this.movieApi.discoverMovies(discoverParams);
 
     return camelcaseKeys(resultWithPagination, { deep: true });
   }

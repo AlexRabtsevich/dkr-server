@@ -7,6 +7,7 @@ import {
   IMDMovieProductionCompany,
   IMDMoveSpokenLanguage,
   IMDMovieProductionCountry,
+  MovieSorting,
 } from '@dkr/shared/movie-database';
 
 export type Movie = CamelCasedPropertiesDeep<IMDMovie>;
@@ -19,6 +20,19 @@ export type MovieProductionCountry = CamelCasedPropertiesDeep<IMDMovieProduction
 
 export type MovieSpokenLanguage = CamelCasedPropertiesDeep<IMDMoveSpokenLanguage>;
 
+export interface ISearchMoviesParams {
+  language?: string;
+  year?: number;
+  releaseDateGte?: string;
+  releaseDateLte?: string;
+  runtimeGte?: string;
+  runtimeLte?: string;
+  genreIds?: string;
+  region?: string;
+  sortBy?: MovieSorting;
+  page: number;
+}
+
 export abstract class AbstractMovieService {
   public abstract getMovieById(movieId: number): Promise<MovieDetails>;
 
@@ -29,4 +43,6 @@ export abstract class AbstractMovieService {
   public abstract getTopRatedMovies(page: number, region?: string): Promise<ResultsWithPagination<Movie>>;
 
   public abstract getUpcomingMovies(page: number, region?: string): Promise<ResultsWithPagination<Movie>>;
+
+  public abstract searchMovies(params?: ISearchMoviesParams): Promise<ResultsWithPagination<Movie>>;
 }

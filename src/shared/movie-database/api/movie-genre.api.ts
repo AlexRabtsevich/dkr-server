@@ -3,11 +3,11 @@ import { Injectable } from '@nestjs/common';
 import { concatPath } from '@dkr/common/api/utils/path';
 import { getData } from '@dkr/common/api/utils/response';
 
-import { BaseTheMovieDatabaseApi } from './base.api';
+import { BaseMDApi } from './base.api';
 import { IMDMovieGenreResponse, IMDMovieGenre } from '../interfaces';
 
 @Injectable()
-export class MDMovieGenreApi extends BaseTheMovieDatabaseApi {
+export class MDMovieGenreApi extends BaseMDApi {
   private static REQUEST_PATH = '/genre';
 
   public async getMovieGenres(): Promise<IMDMovieGenre[]> {

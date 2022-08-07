@@ -34,15 +34,15 @@ export class AuthenticationService extends AbstractAuthenticationService {
     return this.generateAuthentication(user.uuid);
   }
 
-  public async refreshAuthentication(refreshToken): Promise<IAuthentication> {
+  public async refreshAuthentication(refreshToken: string): Promise<IAuthentication> {
     const isTokenValid = await this.tokenService.isRefreshTokenValid(refreshToken);
 
     if (!isTokenValid) {
       throw new UnauthorizedException('Invalid token');
     }
 
-    const { userUuid } = this.tokenService.decodeToken<RefreshTokenPayload>(refreshToken);
-    const isRefreshTokenExist = await this.refreshTokenService.isRefreshTokenExist(refreshToken, userUuid);
+    const { userUuid, exp } = this.tokenService.decodeToken<RefreshTokenPayload>(refreshToken);
+    const isRefreshTokenExist = await this.refreshTokenService.isRefreshTokenExist(exp, userUuid);
 
     if (!isRefreshTokenExist) {
       throw new UnauthorizedException('Token not found');

@@ -69,7 +69,7 @@ type MovieDetailsModel {
   posterPath: String
   adult: Boolean!
   overview: String
-  releaseDate: String!
+  releaseDate: String
   id: ID!
   originalTitle: String!
   originalLanguage: String!
@@ -98,7 +98,7 @@ type MovieModel {
   posterPath: String
   adult: Boolean!
   overview: String
-  releaseDate: String!
+  releaseDate: String
   id: ID!
   originalTitle: String!
   originalLanguage: String!
@@ -119,6 +119,18 @@ type MoviesResultsModelWithPagination {
   results: [MovieModel!]!
 }
 
+"""Movie`s country filters"""
+type MovieSearchCountryFilterModel {
+  name: String!
+  handle: String!
+}
+
+"""Movie`s language filters"""
+type MovieSearchLanguageFilterModel {
+  name: String!
+  handle: String!
+}
+
 type Query {
   user: UserModel!
   gender(uuid: String!): GenderModel!
@@ -130,6 +142,22 @@ type Query {
   popularMovies(page: Int!): MoviesResultsModelWithPagination!
   upcomingMovies(page: Int!): MoviesResultsModelWithPagination!
   topRatedMovies(page: Int!): MoviesResultsModelWithPagination!
+  searchMovies(page: Int!, year: Int, language: String, releaseDateGte: String, releaseDateLte: String, runtimeGte: String, runtimeLte: String, genreIds: String, region: String, sortBy: MovieSorting): MoviesResultsModelWithPagination!
+  movieLanguageFilters: [MovieSearchLanguageFilterModel!]!
+  movieCountryFilters: [MovieSearchCountryFilterModel!]!
+}
+
+enum MovieSorting {
+  PopularityAsc
+  PopularityDesc
+  ReleaseDateAsc
+  ReleaseDateDesc
+  RevenueAsc
+  RevenueDesc
+  OriginalTitleAsc
+  OriginalTitleDesc
+  VoteAverageAsc
+  VoteAverageDesc
 }
 
 type Mutation {

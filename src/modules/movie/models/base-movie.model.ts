@@ -11,7 +11,7 @@ export class BaseMovieModel {
   @Field(() => String, { nullable: true })
   overview: string;
 
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   releaseDate: string;
 
   @Field(() => ID)

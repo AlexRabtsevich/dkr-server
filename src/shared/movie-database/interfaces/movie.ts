@@ -1,5 +1,6 @@
 import { AnyObject } from '@dkr/common/typings';
 
+import { IMDLanguage } from './common';
 import { IMDMovieGenre } from './movie-genre';
 
 interface ITMDBBaseMovie {
@@ -49,16 +50,30 @@ export interface IMDMovieProductionCountry {
   name: string;
 }
 
-export interface IMDMoveSpokenLanguage {
-  iso_639_1: string;
-  name: string;
+export type IMDMoveSpokenLanguage = Omit<IMDLanguage, 'english_name'>;
+
+export enum MovieSorting {
+  PopularityAsc = 'popularity.asc',
+  PopularityDesc = 'popularity.desc',
+  ReleaseDateAsc = 'popularity.asc',
+  ReleaseDateDesc = 'popularity.desc',
+  RevenueAsc = 'revenue.asc',
+  RevenueDesc = 'revenue.desc',
+  OriginalTitleAsc = 'original_title.asc',
+  OriginalTitleDesc = 'original_title.desc',
+  VoteAverageAsc = 'vote_average.asc',
+  VoteAverageDesc = 'vote_average.desc',
 }
 
-export enum MDMovieStatus {
-  Rumored = 'Rumored',
-  Planned = 'Planned',
-  InProduction = 'InProduction',
-  PostProduction = 'PostProduction',
-  Released = 'Released',
-  Canceled = 'Canceled',
+export interface IMDDiscoverMoviesParams {
+  with_original_language?: string;
+  year?: number;
+  'release_date.gte'?: string;
+  'release_date.lte'?: string;
+  'with_runtime.gte'?: string;
+  'with_runtime.lte'?: string;
+  with_genres?: string;
+  region?: string;
+  sort_by?: MovieSorting;
+  page?: number;
 }

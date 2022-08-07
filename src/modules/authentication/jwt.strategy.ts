@@ -17,7 +17,6 @@ export class JwtStrategy extends PassportStrategy(Strategy, JWT_AUTHENTICATION) 
   }
 
   public async validate(tokenPayload: AccessTokenPayload): Promise<AccessTokenPayload> {
-    console.log('HERE');
     return tokenPayload;
   }
 }

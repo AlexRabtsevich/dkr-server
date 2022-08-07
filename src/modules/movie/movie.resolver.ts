@@ -3,7 +3,7 @@ import { Args, Query, Resolver } from '@nestjs/graphql';
 import { PaginationArgs } from '@dkr/gql/dto';
 
 import { AbstractMovieService } from './movie.interface';
-import { MovieDetailsArgs } from './dto';
+import { MovieDetailsArgs, SearchMoviesArgs } from './dto';
 import { MovieDetailsModel, MoviesResultsModelWithPagination } from './models';
 
 @Resolver()
@@ -33,5 +33,10 @@ export class MovieResolver {
   @Query(() => MoviesResultsModelWithPagination)
   async topRatedMovies(@Args() { page }: PaginationArgs): Promise<MoviesResultsModelWithPagination> {
     return await this.movieService.getTopRatedMovies(page);
+  }
+
+  @Query(() => MoviesResultsModelWithPagination)
+  async searchMovies(@Args() searchMoviesArgs: SearchMoviesArgs): Promise<MoviesResultsModelWithPagination> {
+    return await this.movieService.searchMovies(searchMoviesArgs);
   }
 }
