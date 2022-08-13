@@ -1,6 +1,6 @@
 import { Args, Query, Resolver } from '@nestjs/graphql';
 
-import { PaginationArgs } from '@dkr/gql/dto';
+import { PaginationArgs } from '@dkr/gql';
 
 import { AbstractMovieService } from './movie.interface';
 import { MovieDetailsArgs, SearchMoviesArgs } from './dto';

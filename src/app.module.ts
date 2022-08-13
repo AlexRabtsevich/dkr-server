@@ -3,9 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { graphQLConfig } from '@dkr/gql/gql.config';
-import { TypeOrmConfigService } from '@dkr/typeorm/typeorm.service';
-
+import { TypeOrmConfigService } from './typeorm/typeorm.service';
+import { graphQLConfig, DateScalar } from './gql';
 import * as modules from './modules';
 
 @Module({
@@ -15,5 +14,6 @@ import * as modules from './modules';
     GraphQLModule.forRoot(graphQLConfig),
     TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
   ],
+  providers: [DateScalar],
 })
 export class AppModule {}

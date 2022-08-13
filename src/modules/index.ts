@@ -4,3 +4,4 @@ export { MovieGenreModule } from './movie-genre';
 export { MovieModule } from './movie';
 export { AuthenticationModule } from './authentication';
 export { MovieFiltersModule } from './movie-filters';
+export { WishListModule } from './wish-list';

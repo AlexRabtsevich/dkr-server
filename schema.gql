@@ -4,6 +4,10 @@
 
 directive @upper on FIELD_DEFINITION
 
+type SuccessModel {
+  success: Boolean!
+}
+
 type GenderModel {
   uuid: String!
   name: String!
@@ -22,16 +26,14 @@ type UserModel {
   uuid: ID!
   firstName: String!
   lastName: String!
-  birthDate: DateTime!
+  birthDate: Date!
   email: String!
   gender: GenderModel!
   status: UserStatus!
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
+"""Date custom scalar type"""
+scalar Date
 
 enum UserStatus {
   Active
@@ -131,6 +133,64 @@ type MovieSearchLanguageFilterModel {
   handle: String!
 }
 
+"""Wish list`s movie"""
+type WishListMovieModel {
+  posterPath: String
+  adult: Boolean!
+  overview: String
+  releaseDate: String
+  id: ID!
+  originalTitle: String!
+  originalLanguage: String!
+  title: String!
+  backdropPath: String
+  popularity: Float!
+  video: Boolean!
+  voteAverage: Float!
+  voteCount: Float!
+  belongsToCollection: String
+  budget: Float!
+  genres: [MovieGenreModel!]!
+  homepage: String
+  imdbId: String
+  productionCompanies: [MovieProductionCompanyModel!]!
+  productionCountries: [MovieProductionCountryModel!]!
+  revenue: Float!
+  runtime: Float
+  spokenLanguages: [MovieSpokenLanguageModel!]!
+  status: String!
+  tagline: String
+  uuid: String!
+  createdAt: Date!
+  isWatched: Boolean!
+}
+
+"""Wish list`s movies"""
+type WishListMoviesModel {
+  page: Int!
+  totalPages: Int!
+  totalResults: Int!
+  results: [WishListMovieModel!]!
+}
+
+"""Wish list"""
+type WishListModel {
+  uuid: String!
+  userUuid: String!
+  title: String!
+  createdAt: Date!
+  updatedAt: Date!
+  movies(page: Int!): WishListMoviesModel!
+}
+
+"""Wish lists with pagination info"""
+type WishListsResultsModelWithPagination {
+  page: Int!
+  totalPages: Int!
+  totalResults: Int!
+  results: [WishListModel!]!
+}
+
 type Query {
   user: UserModel!
   gender(uuid: String!): GenderModel!
@@ -142,9 +202,11 @@ type Query {
   popularMovies(page: Int!): MoviesResultsModelWithPagination!
   upcomingMovies(page: Int!): MoviesResultsModelWithPagination!
   topRatedMovies(page: Int!): MoviesResultsModelWithPagination!
-  searchMovies(page: Int!, year: Int, language: String, releaseDateGte: String, releaseDateLte: String, runtimeGte: String, runtimeLte: String, genreIds: String, region: String, sortBy: MovieSorting): MoviesResultsModelWithPagination!
+  searchMovies(page: Int!, year: Int, language: String, releaseDateGte: String, releaseDateLte: String, runtimeGte: Float, runtimeLte: Float, genreIds: String, region: String, sortBy: MovieSorting): MoviesResultsModelWithPagination!
   movieLanguageFilters: [MovieSearchLanguageFilterModel!]!
   movieCountryFilters: [MovieSearchCountryFilterModel!]!
+  wishList(wishListUuid: String!): WishListModel!
+  wishLists(page: Float!): WishListsResultsModelWithPagination!
 }
 
 enum MovieSorting {
@@ -166,12 +228,17 @@ type Mutation {
   authenticate(authentication: AuthenticationDto!): AuthenticationModel!
   refreshAuthentication(refreshToken: RefreshAuthenticationDto!): AuthenticationModel!
   logout: LogoutModel!
+  createWishList(wishListData: CreateWishListDto!): WishListModel!
+  updateWishList(wishListUpdateData: UpdateWishListDto!): WishListModel!
+  deleteWishList(watchlistUuid: String!): SuccessModel!
+  deleteMovieFromWishList(watchlistUuid: String!, watchlistMovieUuid: String!): SuccessModel!
+  addMovieToWishList(addMovieToWatchlistData: AddMovieToWishListDto!): WishListMovieModel!
 }
 
 input CreateUserDto {
   firstName: String!
   lastName: String!
-  birthDate: DateTime!
+  birthDate: Date!
   email: String!
   genderUuid: String!
   password: String!
@@ -180,7 +247,7 @@ input CreateUserDto {
 input UpdateUserDto {
   firstName: String
   lastName: String
-  birthDate: DateTime
+  birthDate: Date
   genderUuid: String
 }
 
@@ -191,4 +258,18 @@ input AuthenticationDto {
 
 input RefreshAuthenticationDto {
   refreshToken: String!
+}
+
+input CreateWishListDto {
+  title: String!
+}
+
+input UpdateWishListDto {
+  wishListUuid: String!
+  title: String
+}
+
+input AddMovieToWishListDto {
+  watchlistUuid: String!
+  externalMovieId: Float!
 }

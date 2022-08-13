@@ -1,6 +1,6 @@
 import { ObjectType } from '@nestjs/graphql';
 
-import { Paginated } from '@dkr/gql/models/pagination.model';
+import { Paginated } from '@dkr/gql';
 
 import { MovieModel } from './movie.model';
 

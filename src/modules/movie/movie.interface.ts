@@ -25,8 +25,8 @@ export interface ISearchMoviesParams {
   year?: number;
   releaseDateGte?: string;
   releaseDateLte?: string;
-  runtimeGte?: string;
-  runtimeLte?: string;
+  runtimeGte?: number;
+  runtimeLte?: number;
   genreIds?: string;
   region?: string;
   sortBy?: MovieSorting;

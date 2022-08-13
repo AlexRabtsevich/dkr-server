@@ -31,12 +31,12 @@ export class SearchMoviesArgs implements ISearchMoviesParams {
   releaseDateLte?: string;
 
   @IsOptional()
-  @Field(() => String, { nullable: true })
-  runtimeGte?: string;
+  @Field(() => Number, { nullable: true })
+  runtimeGte?: number;
 
   @IsOptional()
-  @Field(() => String, { nullable: true })
-  runtimeLte?: string;
+  @Field(() => Number, { nullable: true })
+  runtimeLte?: number;
 
   @IsOptional()
   @Field(() => String, { nullable: true })
